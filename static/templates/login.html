@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/login.css') }}">
 </head>
 <body>
-  <form action="" method="post">
+
+    <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Login</h2>
+        <form action="" method="post">
     <label for="nome">Nome</label>
     <input type="text" id="nome" name="nome" />
     
@@ -20,8 +25,11 @@
     <input type="submit" value="Entrar" />
     
     <input type="button" value="Não é um cliente? Cadastrar" />
-  </form>
+
+    </div>
+  </div>
 
 
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 </html>

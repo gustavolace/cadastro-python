@@ -12,7 +12,8 @@
     <nav>
       <ul>
         <li><a href="#">Sign In</a></li>
-        <li><a href="#">Sign Up</a></li>
+        <li><a class="custom-link" onclick="openModal()">Sign Up</a></li>
+        <button ></button>
       </ul>
     </nav>
   </header>
@@ -28,6 +29,9 @@
   <button onclick="carregarLogin()">Carregar Login</button>
   <div id="secaoLogin"></div>
   
+<div id="modalContent" style="display: none;"></div>
+
+
   <script src="{{ url_for('static', filename='js/start.js') }}"></script>
 
 
