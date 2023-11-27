@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criação de Personagens - Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/start.css') }}">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Sign In</a></li>
+        <li><a href="#">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="hero">
+      <h1>Crie Personagens Incríveis</h1>
+      <p>Seja o mestre da sua história. Desenvolva personagens únicos e dê vida às suas criações.</p>
+      <a href="#" class="btn">Comece Agora</a>
+    </section>
+  </main>
+
+  <button onclick="carregarLogin()">Carregar Login</button>
+  <div id="secaoLogin"></div>
+  
+  <script src="{{ url_for('static', filename='js/start.js') }}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG GAME</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#signin">Sign In</a></li>
+                <li><a href="#signup">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Escolha suas habilidades</h1>
+
+        <section class="character-creation">
+            <div class="character-info">
+                <h2>Crie o seu personagem</h2>
+                <form>
+                    <label for="character-name">Nome do personagem:</label>
+                    <input type="text" id="character-name" name="character-name" placeholder="Digite o nome do seu personagem" required>
+
+                    <label for="hair-color">Cor do cabelo:</label>
+                    <input type="text" id="hair-color" name="hair-color" placeholder="Digite a cor do cabelo" required>
+
+                    <label for="skin-color">Cor da pele:</label>
+                    <input type="text" id="skin-color" name="skin-color" placeholder="Digite a cor da pele" required>
+
+                    <label for="strength">Forca:</label>
+                    <input type="range" id="strength" name="strength" min="1" max="10" value="5">
+
+                    <label for="intelligence">Inteligencia:</label>
+                    <input type="range" id="intelligence" name="intelligence" min="1" max="10" value="5">
+
+                    <input type="submit" value="Criar Personagem">
+                </form>
+            </div>
+
+            <div class="character-image">
+                <img src="https://trulyoutofcharacter.files.wordpress.com/2020/11/cloud_strife_from_ffvii_remake_promo_render.png" alt="Imagem do personagem">
+            </div>
+        </section>
+
+        <p>Já tem uma conta? <a href="#signin">Faça login</a></p>
+
+        
+    </main>
+</body>
+</html>
