@@ -24,7 +24,7 @@ class DB:
                 print('Conexão ao banco de dados estabelecida')
         except mysql.connector.Error as e:
             print(f"Erro ao conectar ao banco de dados: {e}")
-            raise  # Lança a exceção para sinalizar que a conexão falhou
+            raise
 
     def close(self):
         if self.connection.is_connected():
@@ -35,7 +35,10 @@ class DB:
         return self.connection.is_connected() if self.connection else False
 
 try:
-    db = DB(host=os.getenv("DB_HOST"), user=os.getenv("DB_USER"), password=os.getenv("DB_PASS"), database=os.getenv("DB_DATABASE"))
+    db = DB(host=os.getenv("DB_HOST"), 
+            user=os.getenv("DB_USER"), 
+            password=os.getenv("DB_PASS"), 
+            database=os.getenv("DB_DATABASE"))
     db.connect()
 
     if db.is_connected():
