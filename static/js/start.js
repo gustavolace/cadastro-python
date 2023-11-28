@@ -9,18 +9,18 @@ function openModal() {
       modalContainer.innerHTML = html;
       modalContent.appendChild(modalContainer);
       modalContent.style.display = "block";
+
+      let span = document.querySelector(".close")
+      span.addEventListener("click", () => {
+        modalContainer.remove()
+      })
     })
-    .catch((error) => console.error("Erro ao carregar o modal:", error));
-}
 
-function closeModal() {
-  let modalContent = document.getElementById("modalContent");
-  modalContent.innerHTML = "";
-  modalContent.style.display = "none";
-}
-
-document
-  .getElementById("loginForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-  });
+    window.addEventListener("click", (event) => {
+      let logindiv = document.querySelector(".modal")
+  
+      if (event.target === modalContainer || event.target === logindiv) {
+        modalContainer.remove()
+      }
+    });
+  }
