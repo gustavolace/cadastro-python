@@ -9,11 +9,11 @@ def index():
 
 @rotas_bp.route('/signin')
 def signin():
-    return render_template('login.html')
+    return render_template('sign-in.html')
 
 @rotas_bp.route('/signup')
 def signup():
-    return render_template('g.html')
+    return render_template('sign-up.html')
 
 @rotas_bp.route('/char')
 def char():

@@ -25,6 +25,11 @@ nav ul li {
 nav ul li a {
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
+}
+
+nav ul li a:hover {
+  color: #ddd;
 }
 
 main {
@@ -54,6 +59,7 @@ main {
   background-color: #333;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
@@ -114,18 +120,4 @@ main {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-.custom-link {
-  padding: 5px 10px;
-  display: inline-block;
-  text-decoration: none;
-  background-color: #eee;
-  color: black;
-  cursor: pointer;
-  transition: background-color 0.3s ease; 
-}
-
-.custom-link:hover {
-  background-color: #ddd;
 }

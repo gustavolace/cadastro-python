@@ -11,8 +11,8 @@
   <header>
     <nav>
       <ul>
-        <li><a href="#">Sign In</a></li>
-        <li><a class="custom-link" onclick="openModal()">Sign Up</a></li>
+        <li><a onclick="openModal('/signin')">Sign In</a></li>
+        <li><a onclick="openModal('/signup')">Sign Up</a></li>
       </ul>
     </nav>
   </header>
@@ -21,7 +21,7 @@
     <section class="hero">
       <h1>Crie Personagens Incríveis</h1>
       <p>Seja o mestre da sua historia. Desenvolva personagens unicos e de vida as suas criacoes.</p>
-      <a href="#" class="btn">Comece Agora</a>
+      <a onclick="openModal('/signin')" class="btn">Comece Agora</a>
     </section>
   </main>
 
