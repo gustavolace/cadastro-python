@@ -128,7 +128,7 @@ a:hover {
   margin-right: 10px; 
 }
 
-.cor-sample {
+.cor-sample, .skin-sample {
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -136,7 +136,7 @@ a:hover {
 }
 
 /* Efeito hover */
-.cor-sample:hover {
+.cor-sample:hover, .skin-sample:hover {
   transform: scale(1.2);
 }
 
@@ -156,8 +156,8 @@ input[type="radio"]:checked + .cor-sample {
   background-color: green;
 }
 
-.black {
-  background-color: black;
+.yellow {
+  background-color: yellow
 }
 
 .bege {
@@ -176,10 +176,6 @@ input[type="radio"]:checked + .cor-sample {
   background-color: #654321
 }
 
-
-input[type="radio"]:checked + .cor-sample {
-  border-color: #333; 
-}
 
 input[type="radio"] {
   display: none;
