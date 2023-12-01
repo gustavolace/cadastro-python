@@ -35,7 +35,7 @@ class DB:
         return self.connection.is_connected() if self.connection else False
 
 
-def startServer(): 
+def start_server(): 
     db = DB(host=os.getenv("DB_HOST"), 
                 user=os.getenv("DB_USER"), 
                 password=os.getenv("DB_PASS"), 
