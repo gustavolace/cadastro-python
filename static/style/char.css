@@ -92,7 +92,7 @@ label {
 }
 
 input[type="text"],
-input[type="range"],
+input[type="number"],
 input[type="submit"] {
     width: 100%;
     padding: 8px;
@@ -120,3 +120,68 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.color-options {
+  display: flex;
+}
+
+.cor-option {
+  margin-right: 10px; 
+}
+
+.cor-sample {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease-in-out; 
+}
+
+/* Efeito hover */
+.cor-sample:hover {
+  transform: scale(1.2);
+}
+
+input[type="radio"]:checked + .cor-sample {
+  transform: scale(1.2)
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
+}
+
+.black {
+  background-color: black;
+}
+
+.bege {
+  background-color: #F5DEB3
+}
+
+.tan {
+  background-color: #D2B48C
+}
+
+.pantone {
+  background-color: #AE856C
+}
+
+.marrom {
+  background-color: #654321
+}
+
+
+input[type="radio"]:checked + .cor-sample {
+  border-color: #333; 
+}
+
+input[type="radio"] {
+  display: none;
+}
+
