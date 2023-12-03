@@ -140,7 +140,7 @@ a:hover {
   transform: scale(1.2);
 }
 
-input[type="radio"]:checked + .cor-sample {
+input[type="radio"]:checked + .cor-sample, input[type="radio"]:checked + .skin-sample {
   transform: scale(1.2)
 }
 
