@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
+from src.helpers.imgLinks import colorLinks
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
 
@@ -19,3 +20,6 @@ def signup():
 def char():
     return render_template('char.html')
 
+@rotas_bp.route('/img', methods=['GET'])
+def img():
+    return jsonify(colorLinks)

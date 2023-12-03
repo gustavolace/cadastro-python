@@ -10,9 +10,9 @@ if __name__ == '__main__':
     server_process = multiprocessing.Process(target=start_server)
 
     flask_process.start()
-    webview_process.start()
+    """ webview_process.start() """
     server_process.start()
 
     flask_process.join()
-    webview_process.join()
+    """ webview_process.join() """
     server_process.join()
