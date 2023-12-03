@@ -1,0 +1,79 @@
+@import url("https://fonts.cdnfonts.com/css/common-pixel");
+
+body {
+  font-family: "Common Pixel", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.personagens-lista {
+  list-style: none;
+  padding: 0;
+}
+
+.personagem {
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  cursor: pointer;
+  width: 80%; 
+  box-sizing: border-box; 
+}
+
+.personagem:hover {
+  transform: scale(1.1);
+}
+
+.personagem.editando .editar-texto {
+  display: block;
+}
+
+.personagem img {
+  width: 100px;
+  height: auto;
+}
+
+.info {
+  flex: 1;
+}
+
+.info h2 {
+  margin-top: 0;
+}
+
+button#criar-personagem {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button#criar-personagem:hover {
+  background-color: #0056b3;
+}
+

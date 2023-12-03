@@ -1,35 +1,9 @@
 @import url("https://fonts.cdnfonts.com/css/common-pixel");
 body {
   font-family: "Common Pixel", sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-}
-
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-  margin-right: 10px;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-nav ul li a:hover {
-  color: #ddd;
+  background-color: #f4f4f4;
 }
 
 main {
@@ -68,26 +42,6 @@ main {
   background-color: #555;
 }
 
-.features {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.features h2 {
-  font-size: 2em;
-  margin-bottom: 30px;
-}
-
-.feature {
-  display: inline-block;
-  margin: 0 20px;
-}
-
-.feature img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
 
 .modal-container {
   position: fixed;
