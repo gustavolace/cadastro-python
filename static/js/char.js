@@ -24,11 +24,8 @@ let skinColor;
         skinColor = selectedColor;
       }
 
-
       fetchCharacterImages(hairColor, skinColor).then((imageLink) => {
-        if (imageLink) {
           applyImageToCharacter(imageLink, characterImageElement);
-        }
       });
     });
   });
