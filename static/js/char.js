@@ -5,7 +5,7 @@ import {
 
 const corSamples = document.querySelectorAll(".cor-sample");
 const skinSamples = document.querySelectorAll(".skin-sample");
-let characterImageElement = document.querySelector(".character-image");
+let characterImageElement = document.querySelector(".character-image img");
 
 selectColor(corSamples, "hair");
 selectColor(skinSamples, "skin");

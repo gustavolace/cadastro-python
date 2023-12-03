@@ -16,7 +16,7 @@ export function fetchCharacterImages(hairColor, skinColor) {
 }
 
 export function applyImageToCharacter(link, divImg) {
-  divImg.innerHTML = `<img src="${link}" alt="Imagem do personagem">`;
+  divImg.src = link
 }
 
 
