@@ -77,3 +77,6 @@ button#criar-personagem:hover {
   background-color: #0056b3;
 }
 
+.fas.fa-times {
+  padding-right: 40px;
+}

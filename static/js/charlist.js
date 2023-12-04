@@ -1,3 +1,11 @@
-import { hrefChange } from "./_functions.js";
+function alerta(event) {
+  event.stopPropagation();
+  alert("hello world");
+}
 
-hrefChange("button", 0, "/char")
+let liElements = document.querySelectorAll(".personagem");
+liElements.forEach((char) => {
+  char.addEventListener("click", () => {
+    window.location.href = "/char";
+  });
+});

@@ -7,6 +7,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style/charlist.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
   </head>
   <body>
     {% include 'header.html' %}
@@ -14,11 +18,7 @@
     <div class="container">
       <h1>Lista de Personagens</h1>
       <ul class="personagens-lista">
-        <li
-          class="personagem"
-          onclick="window.location='pagina_de_edicao.html';"
-          title="Editar Personagem"
-        >
+        <li class="personagem" title="Editar Personagem">
           <img
             src="https://i.postimg.cc/q7sTcVxk/yellow-bege.png"
             alt="Imagem do Personagem"
@@ -28,15 +28,22 @@
             <p>Forca: 8</p>
             <p>Inteligencia: 7</p>
           </div>
+          <i
+            onclick="alerta(event)"
+            class="fas fa-times"
+            title="Excluir Personagem"
+          ></i>
         </li>
       </ul>
 
       <button id="criar-personagem">Criar Novo Personagem</button>
     </div>
 
-    <script
-      type="module"
-      src="{{ url_for('static', filename='js/charlist.js') }}"
-    ></script>
+    <script src="{{ url_for('static', filename='js/charlist.js') }}"></script>
+
+    <script type="module">
+      import { hrefChange } from "{{ url_for('static', filename='js/_functions.js') }}";
+      hrefChange("button", 0, "/char");
+    </script>
   </body>
 </html>
