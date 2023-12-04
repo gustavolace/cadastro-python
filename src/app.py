@@ -13,7 +13,7 @@ def create_app():
     app = Flask(__name__, static_folder='../static', template_folder='templates')
     app.register_blueprint(rotas_bp)
 
-    print(f"Servidor rodando em http://localhost:{port}/")
+    print(f"Servidor rodando em http://{host}:{port}/")
     serve(app, host=host, port=port)
 
 
