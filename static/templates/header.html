@@ -1,0 +1,28 @@
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/header.css') }}"
+/>
+
+<header>
+  <nav class="menu-left" aria-label="">
+    <ul>
+      <li><a>Lista de Personagens</a></li>
+      <li><a>Criar Personagem</a></li>
+    </ul>
+  </nav>
+
+  <nav class="menu-right" aria-label="">
+    <ul>
+      <li><a>Início</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<script type="module">
+import { hrefChange } from "{{ url_for('static', filename='js/_functions.js') }}";
+
+hrefChange("a", 0, "/charlist")
+hrefChange("a", 1, "/char")
+hrefChange("a", 2, "/")
+</script>

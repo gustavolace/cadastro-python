@@ -19,4 +19,10 @@ export function applyImageToCharacter(link, divImg) {
   divImg.src = link
 }
 
-
+export function hrefChange(tag, number, route) {
+  document
+    .getElementsByTagName(tag)[number]
+    .addEventListener("click", () => {
+      window.location.href = route;
+    });
+}
