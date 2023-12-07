@@ -1,11 +1,6 @@
-function alerta(event) {
-  event.stopPropagation();
-  alert("hello world");
-}
-
-let liElements = document.querySelectorAll(".personagem");
-liElements.forEach((char) => {
-  char.addEventListener("click", () => {
-    window.location.href = "/char";
+document.querySelectorAll(".personagem").forEach( (item) => {
+  item.addEventListener("click", () => {
+    let charId = item.getAttribute("data-charid");
+    window.location.href = `/char/${charId}`;
   });
 });

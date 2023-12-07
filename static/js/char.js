@@ -1,32 +1,44 @@
 import {
-  fetchCharacterImages,
-  applyImageToCharacter,
+  handleColorSelection,
 } from "./_functions.js";
+
+export const colors = {
+  hairColor: null,
+  skinColor: null,
+};
 
 const corSamples = document.querySelectorAll(".cor-sample");
 const skinSamples = document.querySelectorAll(".skin-sample");
 let characterImageElement = document.querySelector(".character-image img");
 
+document.addEventListener("DOMContentLoaded", () => {
+  let skinRadios = document.querySelectorAll(
+    'input[type="radio"][name=skinColor]'
+  );
+  let hairRadios = document.querySelectorAll(
+    'input[type="radio"][name=corCabelo]'
+  );
+  eachRadio(skinRadios, "skin");
+  eachRadio(hairRadios, "hair");
+
+  function eachRadio(radio, type) {
+    radio.forEach(function (radio) {
+      let spanColor = radio.nextElementSibling.getAttribute("data-cor");
+      if (radio.checked) {
+        handleColorSelection(spanColor, type, characterImageElement);
+      }
+    });
+  }
+});
+
 selectColor(corSamples, "hair");
 selectColor(skinSamples, "skin");
 
-let hairColor;
-let skinColor;
-
- function selectColor(colorSamples, type) {
-  let selectedColor;
+function selectColor(colorSamples, type) {
   colorSamples.forEach((sample) => {
+    let selectedColor = sample.getAttribute("data-cor");
     sample.addEventListener("click", () => {
-      selectedColor = sample.getAttribute("data-cor");
-      if (type === "hair") {
-        hairColor = selectedColor;
-      } else if (type === "skin") {
-        skinColor = selectedColor;
-      }
-
-      fetchCharacterImages(hairColor, skinColor).then((imageLink) => {
-          applyImageToCharacter(imageLink, characterImageElement);
-      });
+      handleColorSelection(selectedColor, type, characterImageElement);
     });
   });
 }

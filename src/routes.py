@@ -13,7 +13,7 @@ create_route('/', 'start.html')
 create_route('/signin', 'sign-in.html')
 create_route('/signup', 'sign-up.html')
 create_route('/header', 'header.html')
-create_route('/char', 'char.html')
+""" create_route('/char', 'char.html') """
 """ create_route('/charlist', 'charlist.html') """
 
 personagens = {
@@ -26,6 +26,13 @@ usuarios = {
     1: {'id': 1, 'nome': 'usuario1', 'senha': 'senha1'},
     2: {'id': 2, 'nome': 'usuario2', 'senha': 'senha2'},
 }
+
+@rotas_bp.route('/char/<int:char_id>', endpoint='character')
+def character(char_id):
+    personagem = personagens.get(char_id)
+    if personagem:
+        return render_template('char.html', personagem=personagem)
+    return "Personagem não encontrado", 404
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
 def user(user_id):
@@ -45,16 +52,6 @@ def validation():
         if usuario_info['nome'] == user_name and usuario_info['senha'] == senha:
             return redirect(url_for('rotas.user', id=usuario_id))
     return "Credenciais inválidas. Tente novamente."
-
-
-
-@rotas_bp.route('/personagem/<int:id>')
-def exibir_personagem(id):
-    personagem = personagens.get(id)
-    if personagem:
-        return render_template('personagem.html', personagem=personagem)
-    else:
-        return "Personagem não encontrado", 404
 
 
 @rotas_bp.route('/img', methods=['GET'])
