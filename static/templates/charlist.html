@@ -19,18 +19,28 @@
       <h1>Lista de Personagens</h1>
       <ul class="personagens-lista">
         {% for personagem in personagens %}
-        <li class="personagem" title="Editar Personagem"  data-charid="{{ personagem['id'] }}">
-            <img src="https://i.postimg.cc/q7sTcVxk/yellow-bege.png" alt="Imagem do Personagem"/>
-            <div class="info">
-                <h2>{{ personagem['name'] }}</h2>
-                {% if 'str' in personagem %}
-                <p>Forca: {{ personagem['str'] }}</p>
-                {% endif %}
-                {% if 'int' in personagem %}
-                <p>Inteligencia: {{ personagem['int'] }}</p>
-                {% endif %}
-            </div>
-            <i onclick="alerta(event)" class="fas fa-times" title="Excluir Personagem"></i>
+        <li
+          class="personagem"
+          title="Editar Personagem"
+          data-charid="{{ personagem['id'] }}"
+        >
+          {% set color_key = personagem['hair_color'] + '_' +
+          personagem['skin_color'] %} {% set image_link =
+          colorLinks.get(color_key) %}
+          <img src="{{ image_link }}" alt="Character Image" />
+          <div class="info">
+            <h2>{{ personagem['name'] }}</h2>
+            {% if 'str' in personagem %}
+            <p>Forca: {{ personagem['str'] }}</p>
+            {% endif %} {% if 'int' in personagem %}
+            <p>Inteligencia: {{ personagem['int'] }}</p>
+            {% endif %}
+          </div>
+          <i
+            onclick="alerta(event)"
+            class="fas fa-times"
+            title="Excluir Personagem"
+          ></i>
         </li>
         {% endfor %}
       </ul>

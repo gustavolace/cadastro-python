@@ -38,7 +38,7 @@ def user(user_id):
     personagens_do_usuario = [personagem for personagem in personagens.values() if personagem.get('user_id') == user_id]
     usuario = usuarios.get(user_id)
     if usuario:
-        return render_template('charlist.html', personagens=personagens_do_usuario)
+        return render_template('charlist.html', personagens=personagens_do_usuario, colorLinks = colorLinks)
     return "Usuário não encontrado", 404
 
 

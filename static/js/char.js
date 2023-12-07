@@ -6,33 +6,16 @@ export const colors = {
   hairColor: null,
   skinColor: null,
 };
+const characterImage = document.querySelector(".character-image img");
+export const colorKey = {
+  hairColor: characterImage.getAttribute("data-hair"),
+  skinColor: characterImage.getAttribute("data-skin")
+}
+
 
 const corSamples = document.querySelectorAll(".cor-sample");
 const skinSamples = document.querySelectorAll(".skin-sample");
 let characterImageElement = document.querySelector(".character-image img");
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  let skinRadios = document.querySelectorAll(
-    'input[type="radio"][name=skinColor]'
-  );
-  let hairRadios = document.querySelectorAll(
-    'input[type="radio"][name=corCabelo]'
-  );
-  eachRadio(skinRadios, "skin");
-  eachRadio(hairRadios, "hair");
-
-
-
-  function eachRadio(radio, type) {
-    radio.forEach(function (radio) {
-      let spanColor = radio.nextElementSibling.getAttribute("data-cor");
-      if (radio.checked) {
-        handleColorSelection(spanColor, type, characterImageElement);
-      }
-    });
-  }
-});
- */
 
 selectColor(corSamples, "hair");
 selectColor(skinSamples, "skin");

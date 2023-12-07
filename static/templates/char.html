@@ -92,15 +92,21 @@
       </form>
     </div>
 
-<div class="character-image">
-        {% set color_key = personagem['hair_color'] + '_' + personagem['skin_color'] %}
-        {% set image_link = colorLinks.get(color_key) %}
-        <img src="{{ image_link }}" alt="Character Image">
-</div>
-
+    <div class="character-image">
+      {% set color_key = personagem['hair_color'] + '_' +
+      personagem['skin_color'] %} {% set image_link = colorLinks.get(color_key)
+      %}
+      <img
+        src="{{ image_link }}"
+        alt="Character Image"
+        data-skin="{{ personagem['skin_color'] }}"
+        data-hair="{{personagem['hair_color']}}"
+      />
+    </div>
   </section>
 </main>
 
-<script type="module" src="{{ url_for('static', filename='js/char.js') }}"></script>
-   
-
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/char.js') }}"
+></script>

@@ -1,12 +1,16 @@
-import { colors } from "./char.js";
+import { colors, colorKey } from "./char.js";
 
 export function fetchCharacterImages(hairColor, skinColor) {
   return fetch("/img")
     .then((res) => res.json())
     .then((links) => {
+      skinColor = skinColor ?? colorKey.skinColor;
+      hairColor = hairColor ?? colorKey.hairColor;
+
       const defaultHairColor = hairColor || "yellow";
       const defaultSkinColor = skinColor || "bege";
       let linkColor = defaultHairColor + "_" + defaultSkinColor;
+
       return links[linkColor];
     })
     .catch((e) => {
@@ -25,8 +29,11 @@ export function hrefChange(tag, number, route) {
   });
 }
 
-export function handleColorSelection(selectedColor, type, characterImageElement) {
-
+export function handleColorSelection(
+  selectedColor,
+  type,
+  characterImageElement
+) {
   if (type === "hair") {
     colors.hairColor = selectedColor;
   } else if (type === "skin") {
