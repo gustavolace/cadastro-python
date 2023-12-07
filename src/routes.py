@@ -17,11 +17,10 @@ create_route('/header', 'header.html')
 """ create_route('/charlist', 'charlist.html') """
 
 personagens = {
-    1: {'id': 1, 'name': 'Personagem 1', 'str': 8, 'int': 5, 'user_id': 1},
-    2: {'id': 2, 'name': 'Personagem 2', 'user_id': 1},
-    3: {'id': 3, 'name': 'Personagem 3', 'str': 6, 'int': 7, 'user_id': 2},
+    1: {'id': 1, 'name': 'Personagem 1', 'str': 8, 'int': 5, 'user_id': 1, 'hair_color': 'green', 'skin_color': 'tan'},
+    2: {'id': 2, 'name': 'Personagem 2', 'user_id': 1, 'hair_color': 'red', 'skin_color': 'bege'},
+    3: {'id': 3, 'name': 'Personagem 3', 'str': 6, 'int': 7, 'user_id': 2, 'hair_color': 'blue', 'skin_color': 'brown'},
 }
-
 usuarios = {
     1: {'id': 1, 'nome': 'usuario1', 'senha': 'senha1'},
     2: {'id': 2, 'nome': 'usuario2', 'senha': 'senha2'},
@@ -31,7 +30,7 @@ usuarios = {
 def character(char_id):
     personagem = personagens.get(char_id)
     if personagem:
-        return render_template('char.html', personagem=personagem)
+        return render_template('char.html', personagem=personagem, colorLinks = colorLinks)
     return "Personagem não encontrado", 404
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')

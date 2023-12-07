@@ -11,7 +11,7 @@ const corSamples = document.querySelectorAll(".cor-sample");
 const skinSamples = document.querySelectorAll(".skin-sample");
 let characterImageElement = document.querySelector(".character-image img");
 
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   let skinRadios = document.querySelectorAll(
     'input[type="radio"][name=skinColor]'
   );
@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   eachRadio(skinRadios, "skin");
   eachRadio(hairRadios, "hair");
+
+
 
   function eachRadio(radio, type) {
     radio.forEach(function (radio) {
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+ */
 
 selectColor(corSamples, "hair");
 selectColor(skinSamples, "skin");

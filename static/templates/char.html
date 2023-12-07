@@ -92,13 +92,15 @@
       </form>
     </div>
 
-    <div class="character-image">
-      <img
-        src="https://i.postimg.cc/q7sTcVxk/yellow-bege.png"
-        alt="Imagem do personagem"
-      />
-    </div>
+<div class="character-image">
+        {% set color_key = personagem['hair_color'] + '_' + personagem['skin_color'] %}
+        {% set image_link = colorLinks.get(color_key) %}
+        <img src="{{ image_link }}" alt="Character Image">
+</div>
+
   </section>
 </main>
 
 <script type="module" src="{{ url_for('static', filename='js/char.js') }}"></script>
+   
+
