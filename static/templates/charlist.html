@@ -18,22 +18,21 @@
     <div class="container">
       <h1>Lista de Personagens</h1>
       <ul class="personagens-lista">
+        {% for personagem in personagens %}
         <li class="personagem" title="Editar Personagem">
-          <img
-            src="https://i.postimg.cc/q7sTcVxk/yellow-bege.png"
-            alt="Imagem do Personagem"
-          />
-          <div class="info">
-            <h2>Nome do Personagem</h2>
-            <p>Forca: 8</p>
-            <p>Inteligencia: 7</p>
-          </div>
-          <i
-            onclick="alerta(event)"
-            class="fas fa-times"
-            title="Excluir Personagem"
-          ></i>
+            <img src="https://i.postimg.cc/q7sTcVxk/yellow-bege.png" alt="Imagem do Personagem"/>
+            <div class="info">
+                <h2>{{ personagem['name'] }}</h2>
+                {% if 'str' in personagem %}
+                <p>Força: {{ personagem['str'] }}</p>
+                {% endif %}
+                {% if 'int' in personagem %}
+                <p>Inteligência: {{ personagem['int'] }}</p>
+                {% endif %}
+            </div>
+            <i onclick="alerta(event)" class="fas fa-times" title="Excluir Personagem"></i>
         </li>
+        {% endfor %}
       </ul>
 
       <button id="criar-personagem">Criar Novo Personagem</button>
