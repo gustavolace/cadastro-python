@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for
 from src.helpers.imgLinks import colorLinks
+from werkzeug.security import generate_password_hash
 from src.services.sql import start_server 
+""" from src.helpers.handleUser import User """
 
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
@@ -55,14 +57,45 @@ def newchar(id):
 
 @rotas_bp.route('/login', methods=['POST'])
 def validation():
-    user_name = request.form['usuario']
-    senha = request.form['senha']
+    db = start_server()
 
-    for usuario_id, usuario_info in usuarios.items():
+    query =  "SELECT * FROM user"
+    db.cursor.execute(query)
+    results = db.cursor.fetchall()
+    users = {}
+    for row in results:
+        user_id = row['id'] 
+        users[user_id] = {
+            'nome': row['username'],  
+            'senha': row['password']  
+            }
+
+    user_name = request.form['usuario']
+    senha = request.form['password']
+
+    for usuario_id, usuario_info in users.items():
         if usuario_info['nome'] == user_name and usuario_info['senha'] == senha:
             return redirect(url_for('rotas.user', user_id=usuario_id))
     return "Credenciais inválidas. Tente novamente."
 
+@rotas_bp.route('/register', methods=['POST'])
+def register():
+    db = start_server()
+
+    name = request.form['name']
+    user_name = request.form['username']
+    password = request.form['password']
+
+    hashed_password = generate_password_hash(password)
+
+    add_user_query = "INSERT INTO user (name, username, password) VALUES (%s, %s, %s)"
+    user_data = (name, user_name, hashed_password)
+    db.cursor.execute(add_user_query, user_data)
+    db.connection.commit()
+    db.cursor.close()
+    db.connection.close()
+
+    return redirect((url_for('rotas.route_')))
 
 @rotas_bp.route('/img', methods=['GET'])
 def img():
