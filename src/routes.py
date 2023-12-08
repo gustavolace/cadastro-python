@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for
 from src.helpers.imgLinks import colorLinks
+from src.services.sql import start_server 
+
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
 
@@ -16,14 +18,14 @@ create_route('/header', 'header.html')
 
 
 personagens = {
-    1: {'id': 1, 'name': 'Personagem 1', 'str': 8, 'int': 5, 'user_id': 1, 'hair_color': 'green', 'skin_color': 'tan'},
+    1: {'id': 1, 'name': 'Personagem 1', 'strength': 8, 'intelligence': 5, 'user_id': 1, 'hair_color': 'green', 'skin_color': 'tan'},
     2: {'id': 2, 'name': 'Personagem 2', 'user_id': 1, 'hair_color': 'red', 'skin_color': 'bege'},
-    3: {'id': 3, 'name': 'Personagem 3', 'str': 6, 'int': 7, 'user_id': 2, 'hair_color': 'blue', 'skin_color': 'brown'},
+    3: {'id': 3, 'name': 'Personagem 3', 'strength': 6, 'intelligence': 7, 'user_id': 2, 'hair_color': 'blue', 'skin_color': 'brown'},
 }
 usuarios = {
-    1: {'id': 1, 'nome': 'usuario1', 'senha': 'senha1'},
-    2: {'id': 2, 'nome': 'usuario2', 'senha': 'senha2'},
-    3: {'id': 3, 'nome': 'usuario3', 'senha': 'senha3'},
+    1: {'id': 1, 'nome': 'usuario1', 'username': "user2", 'password': 'senha1'},
+    2: {'id': 2, 'nome': 'usuario2', 'username': "user2", 'password': 'senha2'},
+    3: {'id': 3, 'nome': 'usuario3', 'username': "user2", 'password': 'senha3'},
 }
 
 
@@ -65,3 +67,14 @@ def validation():
 @rotas_bp.route('/img', methods=['GET'])
 def img():
     return jsonify(colorLinks)
+
+@rotas_bp.route('/sql')
+def sql_():  
+    db = start_server()
+
+    query =  "SELECT * FROM user"
+    db.cursor.execute(query)
+    results = db.cursor.fetchall()
+    db.cursor.close()
+    db.connection.close()
+    return jsonify({'valores': results})

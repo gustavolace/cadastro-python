@@ -10,7 +10,7 @@ class DB:
         self.password = password
         self.database = database
         self.connection = None
-
+        self.cursor = None
 
     def connect(self):
         try:
@@ -22,18 +22,10 @@ class DB:
             )
             if self.connection.is_connected():
                 print('Conexão ao banco de dados estabelecida')
+                self.cursor = self.connection.cursor(dictionary=True)  # Atribua o cursor aqui
         except mysql.connector.Error as e:
             print(f"Erro ao conectar ao banco de dados: {e}")
             raise
-
-    def close(self):
-        if self.connection.is_connected():
-            self.connection.close()
-            print('Conexão ao banco de dados encerrada')
-
-    def is_connected(self):
-        return self.connection.is_connected() if self.connection else False
-
 
 def start_server(): 
     db = DB(host=os.getenv("DB_HOST"), 
@@ -41,4 +33,5 @@ def start_server():
                 password=os.getenv("DB_PASS"), 
                 database=os.getenv("DB_DATABASE"))
     db.connect()
+    return db
 
