@@ -11,6 +11,7 @@ def create_app():
     host = os.getenv('APP_HOST')
  
     app = Flask(__name__, static_folder='../static', template_folder='templates')
+    app.secret_key = os.getenv('SECRET_KEY')
     app.register_blueprint(rotas_bp)
 
     print(f"Servidor rodando em http://{host}:{port}/")
