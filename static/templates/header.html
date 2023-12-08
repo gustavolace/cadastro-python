@@ -19,10 +19,14 @@
 </header>
 
 
-<script type="module">
-import { hrefChange } from "{{ url_for('static', filename='js/_functions.js') }}";
+<script>
+function hrefChange(tag, number, route) {
+  document.getElementsByTagName(tag)[number].addEventListener("click", () => {
+    window.location.href = route;
+  });
+}
 
-hrefChange("a", 0, "/charlist")
-hrefChange("a", 1, "/char")
+hrefChange("a", 0, "/charlist/{{usuario['id']}}")
+hrefChange("a", 1, "/newchar/{{usuario['id']}}")
 hrefChange("a", 2, "/")
 </script>

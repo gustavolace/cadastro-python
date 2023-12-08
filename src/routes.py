@@ -25,11 +25,13 @@ usuarios = {
     2: {'id': 2, 'nome': 'usuario2', 'senha': 'senha2'},
 }
 
+
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
 def character(char_id):
     personagem = personagens.get(char_id)
+    usuario = {'id': personagem['user_id']}
     if personagem:
-        return render_template('char.html', personagem=personagem, colorLinks = colorLinks)
+        return render_template('char.html', usuario=usuario, personagem=personagem, colorLinks = colorLinks)
     return "Personagem não encontrado", 404
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
@@ -55,7 +57,7 @@ def validation():
 
     for usuario_id, usuario_info in usuarios.items():
         if usuario_info['nome'] == user_name and usuario_info['senha'] == senha:
-            return redirect(url_for('rotas.user', id=usuario_id))
+            return redirect(url_for('rotas.user', user_id=usuario_id))
     return "Credenciais inválidas. Tente novamente."
 
 
