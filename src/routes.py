@@ -13,8 +13,7 @@ create_route('/', 'start.html')
 create_route('/signin', 'sign-in.html')
 create_route('/signup', 'sign-up.html')
 create_route('/header', 'header.html')
-""" create_route('/char', 'char.html') """
-""" create_route('/charlist', 'charlist.html') """
+
 
 personagens = {
     1: {'id': 1, 'name': 'Personagem 1', 'str': 8, 'int': 5, 'user_id': 1, 'hair_color': 'green', 'skin_color': 'tan'},
@@ -38,7 +37,14 @@ def user(user_id):
     personagens_do_usuario = [personagem for personagem in personagens.values() if personagem.get('user_id') == user_id]
     usuario = usuarios.get(user_id)
     if usuario:
-        return render_template('charlist.html', personagens=personagens_do_usuario, colorLinks = colorLinks)
+        return render_template('charlist.html', usuario=usuario, personagens=personagens_do_usuario, colorLinks = colorLinks)
+    return "Usuário não encontrado", 404
+
+@rotas_bp.route('/newchar/<int:id>')
+def newchar(id):
+    usuario = usuarios.get(id)
+    if usuario:
+        return render_template('newchar.html', usuario=usuario)
     return "Usuário não encontrado", 404
 
 

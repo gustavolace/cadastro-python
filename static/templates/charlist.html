@@ -45,7 +45,7 @@
         {% endfor %}
       </ul>
 
-      <button id="criar-personagem">Criar Novo Personagem</button>
+      <button data-user-id="{{ usuario['id'] }}" id="criar-personagem">Criar Novo Personagem</button>
     </div>
 
     <script src="{{ url_for('static', filename='js/charlist.js') }}"></script>

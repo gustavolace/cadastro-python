@@ -4,3 +4,11 @@ document.querySelectorAll(".personagem").forEach( (item) => {
     window.location.href = `/char/${charId}`;
   });
 });
+
+
+document
+  .getElementById("criar-personagem")
+  .addEventListener("click", function () {
+    let userId = this.getAttribute("data-user-id");
+    window.location.href = `/newchar/${userId}`;
+  });
