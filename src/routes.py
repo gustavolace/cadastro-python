@@ -22,21 +22,30 @@ personagens = {
     1: {'id': 1, 'name': 'Personagem 1', 'strength': 8, 'intelligence': 5, 'user_id': 1, 'hair_color': 'green', 'skin_color': 'tan'},
     2: {'id': 2, 'name': 'Personagem 2', 'user_id': 1, 'hair_color': 'red', 'skin_color': 'bege'},
     3: {'id': 3, 'name': 'Personagem 3', 'strength': 6, 'intelligence': 7, 'user_id': 2, 'hair_color': 'blue', 'skin_color': 'brown'},
+    21: {'id': 4, 'name': 'Personagem 3', 'strength': 6, 'intelligence': 7, 'user_id': 21, 'hair_color': 'blue', 'skin_color': 'brown'},
 }
 usuarios = {
     1: {'id': 1, 'nome': 'usuario1', 'username': "user2", 'password': 'senha1'},
     2: {'id': 2, 'nome': 'usuario2', 'username': "user2", 'password': 'senha2'},
     3: {'id': 3, 'nome': 'usuario3', 'username': "user2", 'password': 'senha3'},
+    21:{'id': 21, 'nome': 'usuario3', 'username': "user2", 'password': 'senha3'},
 }
 
 
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
 def character(char_id):
-    personagem = personagens.get(char_id)
-    usuario = {'id': personagem['user_id']}
-    if personagem:
-        return render_template('char.html', usuario=usuario, personagem=personagem, colorLinks = colorLinks)
-    return "Personagem não encontrado", 404
+    if 'user_id' in session:
+        session_user_id = session.get('user_id')
+
+
+        personagem = personagens.get(char_id)
+        if personagem:
+            usuario = {'id': personagem['user_id']}
+            if session_user_id == usuario['id']:
+                return render_template('char.html', usuario=usuario, personagem=personagem, colorLinks = colorLinks)
+            return "Acesso não autorizado: personagem não encontrado ou permissões insuficientes", 403
+        else:
+            return redirect(url_for('rotas.route_')) 
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
 def user(user_id):
@@ -119,3 +128,17 @@ def sql_():
     db.cursor.close()
     db.connection.close()
     return jsonify({'valores': results})
+
+
+@rotas_bp.route('/pagina_protegida')
+def pagina_protegida():
+    if 'user_id' in session:
+        return "Você está logado e acessou uma página protegida."
+    else:
+        return redirect(url_for('nome_da_rota_de_login'))
+    
+@rotas_bp.route('/logout')
+def logout():
+    # Limpa os dados da sessão para fazer logout
+    session.clear()
+    return redirect(url_for('rotas.route_')) 
