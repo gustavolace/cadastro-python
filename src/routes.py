@@ -23,6 +23,7 @@ personagens = {
 usuarios = {
     1: {'id': 1, 'nome': 'usuario1', 'senha': 'senha1'},
     2: {'id': 2, 'nome': 'usuario2', 'senha': 'senha2'},
+    3: {'id': 3, 'nome': 'usuario3', 'senha': 'senha3'},
 }
 
 
