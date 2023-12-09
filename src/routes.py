@@ -34,18 +34,25 @@ usuarios = {
 
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
 def character(char_id):
-    if 'user_id' in session:
-        session_user_id = session.get('user_id')
+    if 'user_id' not in session:
+        return "Usuário não autenticado", 401
 
+    session_user_id = session.get('user_id')
 
-        personagem = personagens.get(char_id)
-        if personagem:
-            usuario = {'id': personagem['user_id']}
-            if session_user_id == usuario['id']:
-                return render_template('char.html', usuario=usuario, personagem=personagem, colorLinks = colorLinks)
-            return "Acesso não autorizado: personagem não encontrado ou permissões insuficientes", 403
-        else:
-            return redirect(url_for('rotas.route_')) 
+    db = start_server()
+    query = "SELECT * FROM characters WHERE id = %s"
+    db.cursor.execute(query, (char_id,))
+    character = db.cursor.fetchone()  
+    
+    if not character:
+        return "Personagem não encontrado", 404
+
+    usuario = {'id': character['user_id']}
+    if session_user_id != usuario['id']:
+        return "Acesso não autorizado: permissões insuficientes", 403
+
+    return render_template('char.html', usuario=usuario, personagem=character, colorLinks=colorLinks)
+
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
 def user(user_id):
@@ -122,7 +129,7 @@ def img():
 def sql_():  
     db = start_server()
 
-    query =  "SELECT * FROM user"
+    query =  "SELECT * FROM characters"
     db.cursor.execute(query)
     results = db.cursor.fetchall()
     db.cursor.close()
@@ -139,6 +146,5 @@ def pagina_protegida():
     
 @rotas_bp.route('/logout')
 def logout():
-    # Limpa os dados da sessão para fazer logout
     session.clear()
     return redirect(url_for('rotas.route_')) 
