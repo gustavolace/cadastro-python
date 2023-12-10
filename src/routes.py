@@ -16,37 +16,26 @@ create_route('/signin', 'sign-in.html')
 create_route('/signup', 'sign-up.html')
 create_route('/header', 'header.html')
 
-
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
 @authentication_required
 def character(char_id, character=None, usuario_id=None):
     if not character:
         return "Personagem não encontrado", 404
-
     return render_template('char.html', usuario_id=usuario_id, personagem=character, colorLinks=colorLinks)
-
-
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
 @authentication_required
 def user(user_id):
-    characters = get_user_characters(user_id)
-
-    if not characters:
-        return "Personagem não encontrado", 404    
-
+    characters = get_user_characters(user_id)  
     return render_template('charlist.html', usuario_id=user_id, personagens=characters, colorLinks = colorLinks)
 
 @rotas_bp.route('/newchar/<int:user_id>')
 @authentication_required
 def newchar(user_id):
     user = get_user(user_id)
-
     if not user:
         return "Usuario nao encontrado", 404
-    
     return render_template('newchar.html', usuario_id=user_id)
-
 
 @rotas_bp.route('/login', methods=['POST'])
 def validation():
@@ -60,7 +49,6 @@ def validation():
         return redirect(url_for('rotas.user', user_id = user['id']))
     else:
         return "Credenciais inválidas. Faça login novamente ou registre-se."
-
 
 @rotas_bp.route('/register', methods=['POST'])
 def register():
@@ -76,22 +64,10 @@ def register():
         print(f"Ocorreu um erro: {str(e)}")
     return redirect(url_for('rotas.route_'))
 
-
 @rotas_bp.route('/img', methods=['GET'])
 def img():
     return jsonify(colorLinks)
 
-@rotas_bp.route('/sql')
-def sql_():  
-    db = start_server()
-    query =  "SELECT * FROM characters"
-    db.cursor.execute(query)
-    results = db.cursor.fetchall()
-    db.cursor.close()
-    db.connection.close()
-    return jsonify({'valores': results})
-
-    
 @rotas_bp.route('/logout')
 def logout():
     session.clear()
