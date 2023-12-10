@@ -33,11 +33,11 @@ def character(char_id):
     if not character:
         return "Personagem não encontrado", 404
 
-    usuario = {'id': character['user_id']}
-    if session_user_id != usuario['id']:
+    usuario_id = character['user_id']
+    if session_user_id != usuario_id:
         return "Acesso não autorizado: permissões insuficientes", 403
 
-    return render_template('char.html', usuario=usuario, personagem=character, colorLinks=colorLinks)
+    return render_template('char.html', usuario_id=usuario_id, personagem=character, colorLinks=colorLinks)
 
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
@@ -71,18 +71,25 @@ def user(user_id):
     for row in results
 ]
     
-    usuario = results[0]['user_id']
+    usuario_id = results[0]['user_id']
 
-    if usuario:
-        return render_template('charlist.html', usuario=usuario, personagens=personagens_do_usuario, colorLinks = colorLinks)
+    if usuario_id:
+        return render_template('charlist.html', usuario_id=usuario_id, personagens=personagens_do_usuario, colorLinks = colorLinks)
     return "Usuário não encontrado", 404
 
 @rotas_bp.route('/newchar/<int:id>')
+
 def newchar(id):
-    usuario = usuarios.get(id)
-    if usuario:
-        return render_template('newchar.html', usuario=usuario)
-    return "Usuário não encontrado", 404
+    db = start_server()
+    query = "SELECT * FROM user WHERE id = %s"
+    db.cursor.execute(query, (id,))
+    results = db.cursor.fetchone()
+
+    if not results:
+        return "Usuario nao encontrado", 404
+    
+    usuario_id = results['id']
+    return render_template('newchar.html', usuario_id=usuario_id)
 
 
 @rotas_bp.route('/login', methods=['POST'])
