@@ -2,10 +2,10 @@ from flask import Blueprint, render_template, jsonify, request, redirect, url_fo
 from src.helpers.imgLinks import colorLinks
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.services.sql import start_server 
+from src.middlewares.auth import authentication_required
 
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
-
 def create_route(route, template):
     @rotas_bp.route(route)
     def route_function():
@@ -19,34 +19,18 @@ create_route('/header', 'header.html')
 
 
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
-def character(char_id):
-    if 'user_id' not in session:
-        return "Usuário não autenticado", 401
-
-    session_user_id = session.get('user_id')
-
-    db = start_server()
-    query = "SELECT * FROM characters WHERE id = %s"
-    db.cursor.execute(query, (char_id,))
-    character = db.cursor.fetchone()  
-    
+@authentication_required
+def character(char_id, character=None, usuario_id=None):
     if not character:
         return "Personagem não encontrado", 404
-
-    usuario_id = character['user_id']
-    if session_user_id != usuario_id:
-        return "Acesso não autorizado: permissões insuficientes", 403
 
     return render_template('char.html', usuario_id=usuario_id, personagem=character, colorLinks=colorLinks)
 
 
+
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
+@authentication_required
 def user(user_id):
-
-    session_user_id = session.get('user_id')
-    if 'user_id' not in session:
-        return "Usuário não autenticado", 401
-
     db = start_server()
     query = "SELECT * FROM characters WHERE user_id = %s"
     db.cursor.execute(query, (user_id,))
@@ -54,35 +38,15 @@ def user(user_id):
 
     if not results:
         return "Personagem não encontrado", 404    
-    
-    if session_user_id != user_id:
-        return "Acesso não autorizado: permissões insuficientes", 403
 
-    personagens_do_usuario = [
-    {
-        'id': row['id'],
-        'name': row['name'],
-        'strength': row['strength'],
-        'intelligence': row['intelligence'],
-        'user_id': row['user_id'],
-        'hair_color': row['hair_color'],  
-        'skin_color': row['skin_color'],
-    }
-    for row in results
-]
-    
-    usuario_id = results[0]['user_id']
+    return render_template('charlist.html', usuario_id=user_id, personagens=results, colorLinks = colorLinks)
 
-    if usuario_id:
-        return render_template('charlist.html', usuario_id=usuario_id, personagens=personagens_do_usuario, colorLinks = colorLinks)
-    return "Usuário não encontrado", 404
-
-@rotas_bp.route('/newchar/<int:id>')
-
-def newchar(id):
+@rotas_bp.route('/newchar/<int:user_id>')
+@authentication_required
+def newchar(user_id):
     db = start_server()
     query = "SELECT * FROM user WHERE id = %s"
-    db.cursor.execute(query, (id,))
+    db.cursor.execute(query, (user_id,))
     results = db.cursor.fetchone()
 
     if not results:

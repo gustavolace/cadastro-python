@@ -30,9 +30,9 @@
           <img src="{{ image_link }}" alt="Character Image" />
           <div class="info">
             <h2>{{ personagem['name'] }}</h2>
-            {% if 'str' in personagem %}
+            {% if 'strength' in personagem %}
             <p>Forca: {{ personagem['strength'] }}</p>
-            {% endif %} {% if 'int' in personagem %}
+            {% endif %} {% if 'intelligence' in personagem %}
             <p>Inteligencia: {{ personagem['intelligence'] }}</p>
             {% endif %}
           </div>
