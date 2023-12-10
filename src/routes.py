@@ -18,20 +18,6 @@ create_route('/signup', 'sign-up.html')
 create_route('/header', 'header.html')
 
 
-personagens = {
-    1: {'id': 1, 'name': 'Personagem 1', 'strength': 8, 'intelligence': 5, 'user_id': 1, 'hair_color': 'green', 'skin_color': 'tan'},
-    2: {'id': 2, 'name': 'Personagem 2', 'user_id': 1, 'hair_color': 'red', 'skin_color': 'bege'},
-    3: {'id': 3, 'name': 'Personagem 3', 'strength': 6, 'intelligence': 7, 'user_id': 2, 'hair_color': 'blue', 'skin_color': 'brown'},
-    21: {'id': 4, 'name': 'Personagem 3', 'strength': 6, 'intelligence': 7, 'user_id': 21, 'hair_color': 'blue', 'skin_color': 'brown'},
-}
-usuarios = {
-    1: {'id': 1, 'nome': 'usuario1', 'username': "user2", 'password': 'senha1'},
-    2: {'id': 2, 'nome': 'usuario2', 'username': "user2", 'password': 'senha2'},
-    3: {'id': 3, 'nome': 'usuario3', 'username': "user2", 'password': 'senha3'},
-    21:{'id': 21, 'nome': 'usuario3', 'username': "user2", 'password': 'senha3'},
-}
-
-
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
 def character(char_id):
     if 'user_id' not in session:
@@ -56,8 +42,37 @@ def character(char_id):
 
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
 def user(user_id):
-    personagens_do_usuario = [personagem for personagem in personagens.values() if personagem.get('user_id') == user_id]
-    usuario = usuarios.get(user_id)
+
+    session_user_id = session.get('user_id')
+    if 'user_id' not in session:
+        return "Usuário não autenticado", 401
+
+    db = start_server()
+    query = "SELECT * FROM characters WHERE user_id = %s"
+    db.cursor.execute(query, (user_id,))
+    results = db.cursor.fetchall()
+
+    if not results:
+        return "Personagem não encontrado", 404    
+    
+    if session_user_id != user_id:
+        return "Acesso não autorizado: permissões insuficientes", 403
+
+    personagens_do_usuario = [
+    {
+        'id': row['id'],
+        'name': row['name'],
+        'strength': row['strength'],
+        'intelligence': row['intelligence'],
+        'user_id': row['user_id'],
+        'hair_color': row['hair_color'],  
+        'skin_color': row['skin_color'],
+    }
+    for row in results
+]
+    
+    usuario = results[0]['user_id']
+
     if usuario:
         return render_template('charlist.html', usuario=usuario, personagens=personagens_do_usuario, colorLinks = colorLinks)
     return "Usuário não encontrado", 404
@@ -136,13 +151,6 @@ def sql_():
     db.connection.close()
     return jsonify({'valores': results})
 
-
-@rotas_bp.route('/pagina_protegida')
-def pagina_protegida():
-    if 'user_id' in session:
-        return "Você está logado e acessou uma página protegida."
-    else:
-        return redirect(url_for('nome_da_rota_de_login'))
     
 @rotas_bp.route('/logout')
 def logout():
