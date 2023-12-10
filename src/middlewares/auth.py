@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import session
-from src.services.sql import start_server
+from src.helpers.handleSQL import get_from_database
 
 def authentication_required(func):
     @wraps(func)
@@ -12,7 +12,7 @@ def authentication_required(func):
 
         if 'char_id' in kwargs:
             char_id = kwargs['char_id']
-            character = fetch_character(char_id)
+            character = get_from_database("characters", "id = %s", False, char_id)
 
             if not character:
                 return "Personagem não encontrado", 404
@@ -33,8 +33,3 @@ def authentication_required(func):
 
     return decorated_function
 
-def fetch_character(char_id):
-    db = start_server()
-    query = "SELECT * FROM characters WHERE id = %s"
-    db.cursor.execute(query, (char_id,))
-    return db.cursor.fetchone()
