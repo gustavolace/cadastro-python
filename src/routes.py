@@ -1,10 +1,8 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, session, flash
 from src.helpers.imgLinks import colorLinks
-from werkzeug.security import generate_password_hash, check_password_hash
 from src.services.sql import start_server 
 from src.middlewares.auth import authentication_required
-from src.helpers.handleRoutes import get_user_characters, get_user
-
+from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
 def create_route(route, template):
@@ -52,54 +50,32 @@ def newchar(user_id):
 
 @rotas_bp.route('/login', methods=['POST'])
 def validation():
-    db = start_server()
     username = request.form['usuario']
     password = request.form['password']
+    user = login_user(username, password)
 
-    try:
-        query = "SELECT id, name, username, password FROM user WHERE username = %s"
-        db.cursor.execute(query, (username,))
-        user = db.cursor.fetchone()  
+    if user:
+        session['user_id'] = user['id']
+        session['username'] = user['username']
+        return redirect(url_for('rotas.user', user_id = user['id']))
+    else:
+        return "Credenciais inválidas. Faça login novamente ou registre-se."
 
-        if user and check_password_hash(user['password'], password):
-            session['user_id'] = user['id']
-            session['username'] = user['username']
-            return redirect(url_for('rotas.user', user_id = user['id']))
-        else:
-            return "Credenciais inválidas. Faça login novamente ou registre-se."
-    except Exception as e:
-        db.connection.rollback()
-        return f"Ocorreu um erro: {str(e)}"
-    finally:
-        db.cursor.close()
-        db.connection.close()
 
 @rotas_bp.route('/register', methods=['POST'])
 def register():
-
     try:
-        db = start_server()
         name = request.form['name']
-        user_name = request.form['username']
+        username = request.form['username']
         password = request.form['password']
 
-        hashed_password = generate_password_hash(password)
-
-        add_user_query = "INSERT INTO user (name, username, password) VALUES (%s, %s, %s)"
-        user_data = (name, user_name, hashed_password)
-        db.cursor.execute(add_user_query, user_data)
-        db.connection.commit()
-
-        flash('Usuario registrado com sucesso!', 'success')
-        return redirect(url_for('rotas.route_')) 
+        result_message = register_user(name, username, password)
+        flash(result_message, 'success')
     except Exception as e:
-        db.connection.rollback()
         flash('Ocorreu um erro ao registrar o usuario. Por favor, tente novamente.', 'error')
         print(f"Ocorreu um erro: {str(e)}")
-        return redirect(url_for('rotas.route_')) 
-    finally:
-        db.cursor.close()
-        db.connection.close()
+    return redirect(url_for('rotas.route_'))
+
 
 @rotas_bp.route('/img', methods=['GET'])
 def img():
