@@ -3,6 +3,7 @@ from src.helpers.imgLinks import colorLinks
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.services.sql import start_server 
 from src.middlewares.auth import authentication_required
+from src.helpers.handleRoutes import get_user_characters, get_user
 
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
@@ -31,29 +32,22 @@ def character(char_id, character=None, usuario_id=None):
 @rotas_bp.route('/charlist/<int:user_id>', endpoint='user')
 @authentication_required
 def user(user_id):
-    db = start_server()
-    query = "SELECT * FROM characters WHERE user_id = %s"
-    db.cursor.execute(query, (user_id,))
-    results = db.cursor.fetchall()
+    characters = get_user_characters(user_id)
 
-    if not results:
+    if not characters:
         return "Personagem não encontrado", 404    
 
-    return render_template('charlist.html', usuario_id=user_id, personagens=results, colorLinks = colorLinks)
+    return render_template('charlist.html', usuario_id=user_id, personagens=characters, colorLinks = colorLinks)
 
 @rotas_bp.route('/newchar/<int:user_id>')
 @authentication_required
 def newchar(user_id):
-    db = start_server()
-    query = "SELECT * FROM user WHERE id = %s"
-    db.cursor.execute(query, (user_id,))
-    results = db.cursor.fetchone()
+    user = get_user(user_id)
 
-    if not results:
+    if not user:
         return "Usuario nao encontrado", 404
     
-    usuario_id = results['id']
-    return render_template('newchar.html', usuario_id=usuario_id)
+    return render_template('newchar.html', usuario_id=user_id)
 
 
 @rotas_bp.route('/login', methods=['POST'])
@@ -114,7 +108,6 @@ def img():
 @rotas_bp.route('/sql')
 def sql_():  
     db = start_server()
-
     query =  "SELECT * FROM characters"
     db.cursor.execute(query)
     results = db.cursor.fetchall()
