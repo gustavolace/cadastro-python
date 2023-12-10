@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import session
-from src.helpers.handleSQL import get_from_database
+from src.helpers.handleRoutes import char_route
 
 def authentication_required(func):
     @wraps(func)
@@ -12,17 +12,16 @@ def authentication_required(func):
 
         if 'char_id' in kwargs:
             char_id = kwargs['char_id']
-            character = get_from_database("characters", "id = %s", False, char_id)
+            user, character = char_route(char_id)
 
             if not character:
                 return "Personagem não encontrado", 404
 
-            usuario_id = character['user_id']
-            if session_user_id != usuario_id:
+            if session_user_id != user['id']:
                 return "Acesso não autorizado: permissões insuficientes", 403
-
+            
             kwargs['character'] = character  
-            kwargs['usuario_id'] = usuario_id  
+            kwargs['user'] = user
 
         if 'user_id' in kwargs:
             route_user_id = kwargs.get('user_id')
