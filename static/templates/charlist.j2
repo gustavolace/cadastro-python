@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Lista de Personagens</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style/charlist.css') }}"
@@ -13,7 +8,7 @@
     />
   </head>
   <body>
-    {% include 'header.html' %}
+    {% include 'header.j2' %}
 
     <div class="container">
       <h1>Lista de Personagens</h1>
@@ -50,4 +45,3 @@
 
     <script src="{{ url_for('static', filename='js/charlist.js') }}"></script>
   </body>
-</html>
