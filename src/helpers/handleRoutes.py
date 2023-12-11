@@ -1,4 +1,4 @@
-from src.helpers.handleSQL import get_from_database, insert_on_database
+from src.helpers.handleSQL import get_from_database, insert_on_database, delete_on_database
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def get_user_characters(user_id):
@@ -24,9 +24,10 @@ def register_user(name, username, password):
 
 def char_route(char_id):
     character = get_from_database("characters", "id = %s", False, char_id)
-    user = get_from_database("user", "id = %s", False, character['user_id'])
-
-    return user, character
+    if character:
+        user = get_from_database("user", "id = %s", False, character['user_id'])
+        return user, character
+    return None, character
 
 def check_username(username):
     db_username = get_from_database('user', 'username = %s', False, username)
@@ -34,5 +35,9 @@ def check_username(username):
 
 def insert_new_char(values):   
     result = insert_on_database('characters', 'name, hair_color, skin_color, user_id, strength, intelligence', values)
+    return result
+
+def delete_char(char_id):
+    result = delete_on_database('characters', f'id = {char_id}')
     return result
 

@@ -37,9 +37,9 @@
             {% endif %}
           </div>
           <i
-            onclick="alerta(event)"
             class="fas fa-times"
             title="Excluir Personagem"
+            data-char-id="{{ personagem['id'] }}"
           ></i>
         </li>
         {% endfor %}

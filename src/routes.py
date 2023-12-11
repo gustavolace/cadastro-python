@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, session, flash
 from src.helpers.imgLinks import colorLinks
 from src.middlewares.auth import authentication_required
-from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username, insert_new_char
+from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username, insert_new_char, delete_char
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
 def create_route(route, template):
@@ -18,7 +18,6 @@ create_route('/header', 'header.html')
 @rotas_bp.route('/char/<int:char_id>', endpoint='character')
 @authentication_required
 def character(char_id, character= None, user = None):
-    
     if not character:
         return "Personagem não encontrado", 404
     return render_template('char.html', user = user, personagem=character, colorLinks=colorLinks)
@@ -87,5 +86,10 @@ def register_new_char(id):
     values = list(user.values())
     values.insert(3, id)
     message = insert_new_char(values)
+    return jsonify({'message': message})
+
+@rotas_bp.route('/delete/<id>', methods=["POST"])
+def route_delete_char(id):  
+    message = delete_char(id)
     return jsonify({'message': message})
     

@@ -18,14 +18,26 @@ def insert_on_database(table, columns, values):
         query = f"INSERT INTO {table} ({columns}) VALUES ({', '.join(['%s'] * len(values))})"
         db.cursor.execute(query, values)
         db.connection.commit()
-        return "Insercao realizada com sucesso"
+        return "Inserção realizada com sucesso"
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_DUP_ENTRY:
             return "Chave duplicada: Ja existe um registro com esses valores"
         else:
             return f"Erro MySQL: {str(error)}"
     except Exception as e:
-        return f"Ocorreu um erro durante a insercao: {str(e)}"
+        return f"Ocorreu um erro durante a inserção: {str(e)}"
     finally:
         db.cursor.close()
         db.connection.close()
+
+def delete_on_database(table, condition):
+    try:
+        db = start_server()
+        query = f"DELETE FROM {table} WHERE {condition}"
+        db.cursor.execute(query)  
+        db.connection.commit()
+        db.cursor.close()
+        db.connection.close()
+        return "Deletado com sucesso"  
+    except Exception as e:
+        return f"Erro ao deletar registros: {str(e)}"

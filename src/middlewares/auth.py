@@ -14,12 +14,9 @@ def authentication_required(func):
             char_id = kwargs['char_id']
             user, character = char_route(char_id)
 
-            if not character:
-                return "Personagem não encontrado", 404
-
-            if session_user_id != user['id']:
+            if user == None or session_user_id != user['id']:
                 return "Acesso não autorizado: permissões insuficientes", 403
-            
+
             kwargs['character'] = character  
             kwargs['user'] = user
 
