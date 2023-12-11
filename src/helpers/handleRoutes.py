@@ -32,3 +32,7 @@ def check_username(username):
     db_username = get_from_database('user', 'username = %s', False, username)
     return db_username
 
+def insert_new_char(values):   
+    result = insert_on_database('characters', 'name, hair_color, skin_color, user_id, strength, intelligence', values)
+    return result
+

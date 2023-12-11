@@ -8,12 +8,13 @@
 <main>
   <h1>Escolha suas habilidades</h1>
 
+  <form id="charForm">
   <section class="character-creation">
     <div class="character-info">
       <h2>Crie o seu personagem</h2>
       <form>
         <label for="character-name">Nome do personagem:</label>
-        <input
+        <input 
           type="text"
           id="character-name"
           name="character-name"
@@ -24,22 +25,22 @@
         <label for="color-options">Cor do cabelo:</label>
         <div id="color-options" class="color-options">
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="vermelho" />
+            <input type="radio" name="hairColor" value="red" />
             <span class="cor-sample red" data-cor="red"></span>
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="azul" />
+            <input type="radio" name="hairColor" value="blue" />
             <span class="cor-sample blue" data-cor="blue"></span>
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="verde" />
+            <input type="radio" name="hairColor" value="green" />
             <span class="cor-sample green" data-cor="green"></span>
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="amarelo" />
+            <input type="radio" name="hairColor" value="yellow" checked/>
             <span class="cor-sample yellow" data-cor="yellow"></span>
           </label>
         </div>
@@ -47,7 +48,7 @@
         <label for="skin-color">Cor da pele:</label>
         <div id="skin-color-options" class="color-options">
           <label class="cor-option">
-            <input type="radio" name="skinColor" value="bege" />
+            <input type="radio" name="skinColor" value="bege" checked/>
             <span class="skin-sample bege" data-cor="bege"></span>
           </label>
 
@@ -62,13 +63,13 @@
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="skinColor" value="marrom" />
+            <input type="radio" name="skinColor" value="brown" />
             <span class="skin-sample marrom" data-cor="brown"></span>
           </label>
         </div>
 
         <label for="strength">Forca:</label>
-        <input
+        <input required
           type="number"
           id="strength"
           name="strength"
@@ -78,7 +79,7 @@
         />
 
         <label for="intelligence">Inteligencia:</label>
-        <input
+        <input required
           type="number"
           id="intelligence"
           name="intelligence"
@@ -98,9 +99,13 @@
       />
     </div>
   </section>
+  </form>
 </main>
 
 <script
   type="module"
   src="{{ url_for('static', filename='js/char.js') }}"
+></script>
+<script
+  src="{{ url_for('static', filename='js/newchar.js') }}"
 ></script>

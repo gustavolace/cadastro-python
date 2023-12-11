@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, session, flash
 from src.helpers.imgLinks import colorLinks
-from src.services.sql import start_server 
 from src.middlewares.auth import authentication_required
-from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username
+from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username, insert_new_char
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
 def create_route(route, template):
@@ -82,3 +81,11 @@ def route_check_username(username):
     else:
         return jsonify({'available': True})
         
+@rotas_bp.route('/register/newchar/<id>',  methods=['POST'])
+def register_new_char(id):
+    user = request.form
+    values = list(user.values())
+    values.insert(3, id)
+    message = insert_new_char(values)
+    return jsonify({'message': message})
+    
