@@ -8,7 +8,7 @@ if __name__ == '__main__':
     webview_process = multiprocessing.Process(target=open_browser)
 
     flask_process.start()
-    webview_process.start()
+    """ webview_process.start() """
 
     flask_process.join()
     webview_process.join()

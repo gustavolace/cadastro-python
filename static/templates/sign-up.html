@@ -15,13 +15,13 @@
 
     <form  method="POST" action="/register">
     <label for="name">Nome</label>
-    <input type="text" id="name" name="name" />
+    <input required type="text" id="name" name="name" />
     
     <label for="username">Usuario</label>
-    <input type="text" id="username" name="username" />
+    <input required type="text" id="username" name="username" onblur="checkUsernameAvailability()"/>
     
     <label for="password">Senha</label>
-    <input type="password" id="password" name="password" />
+    <input required type="password" id="password" name="password" />
     
     <input type="submit" value="Cadastrar" />
   

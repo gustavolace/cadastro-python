@@ -39,3 +39,14 @@ function openModal(route) {
     }
   });
 }
+
+async function checkUsernameAvailability() {
+  const username = document.getElementById('username').value
+
+  const response = await fetch(`/username/${username}`)
+  const data = await response.json()
+
+  if(!data.available) {
+    alert("Nome de usuário já está em uso.");
+  }
+}

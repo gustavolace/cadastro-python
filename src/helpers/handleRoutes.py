@@ -27,3 +27,8 @@ def char_route(char_id):
     user = get_from_database("user", "id = %s", False, character['user_id'])
 
     return user, character
+
+def check_username(username):
+    db_username = get_from_database('user', 'username = %s', False, username)
+    return db_username
+
