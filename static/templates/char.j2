@@ -8,6 +8,7 @@
 <main>
   <h1>Escolha suas habilidades</h1>
 
+  <form>
   <section class="character-creation">
     <div class="character-info">
       <h2>Crie o seu personagem</h2>
@@ -25,22 +26,22 @@
         <label for="color-options">Cor do cabelo:</label>
         <div id="color-options" class="color-options">
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="vermelho" />
+            <input type="radio" name="hairColor" value="red" />
             <span class="cor-sample red" data-cor="red"></span>
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="azul" />
+            <input type="radio" name="hairColor" value="blue" />
             <span class="cor-sample blue" data-cor="blue"></span>
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="verde" />
+            <input type="radio" name="hairColor" value="green" />
             <span class="cor-sample green" data-cor="green"></span>
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="corCabelo" value="amarelo" />
+            <input type="radio" name="hairColor" value="yellow" />
             <span class="cor-sample yellow" data-cor="yellow"></span>
           </label>
         </div>
@@ -63,7 +64,7 @@
           </label>
 
           <label class="cor-option">
-            <input type="radio" name="skinColor" value="marrom" />
+            <input type="radio" name="skinColor" value="brown" />
             <span class="skin-sample marrom" data-cor="brown"></span>
           </label>
         </div>
@@ -104,8 +105,13 @@
       />
     </div>
   </section>
+  </form>
 </main>
 
+<script
+type="module"
+src="{{ url_for('static', filename='js/color-link-select.js') }}"
+></script>
 <script
   type="module"
   src="{{ url_for('static', filename='js/char.js') }}"

@@ -1,30 +1,23 @@
-import {
-  handleColorSelection,
-} from "./_functions.js";
+import { colorKey } from "./color-link-select.js";
+import { sendChar, getID } from "./_functions.js";
 
-export const colors = {
-  hairColor: null,
-  skinColor: null,
-};
-const characterImage = document.querySelector(".character-image img");
-export const colorKey = {
-  hairColor: characterImage.getAttribute("data-hair"),
-  skinColor: characterImage.getAttribute("data-skin")
-}
+let skinRadios = document.querySelectorAll(
+  'input[type="radio"][name="skinColor"]'
+);
+let hairRadios = document.querySelectorAll(
+  'input[type="radio"][name="hairColor"]'
+);
+radio_check(skinRadios, colorKey.skinColor);
+radio_check(hairRadios, colorKey.hairColor);
 
-
-const corSamples = document.querySelectorAll(".cor-sample");
-const skinSamples = document.querySelectorAll(".skin-sample");
-let characterImageElement = document.querySelector(".character-image img");
-
-selectColor(corSamples, "hair");
-selectColor(skinSamples, "skin");
-
-function selectColor(colorSamples, type) {
-  colorSamples.forEach((sample) => {
-    let selectedColor = sample.getAttribute("data-cor");
-    sample.addEventListener("click", () => {
-      handleColorSelection(selectedColor, type, characterImageElement);
-    });
+function radio_check(array, color) {
+  array.forEach((radio) => {
+    if (radio.value === color) {
+      radio.checked = true;
+    }
   });
 }
+
+const charid = getID()
+const form = document.querySelector("form");
+sendChar(form, "/char/update", charid, userid);

@@ -82,11 +82,19 @@ def route_check_username(username):
         
 @rotas_bp.route('/register/newchar/<id>',  methods=['POST'])
 def register_new_char(id):
-    user = request.form
-    values = list(user.values())
+    char = request.form
+    values = list(char.values())
     values.insert(3, id)
     message = insert_new_char(values)
     return jsonify({'message': message})
+
+@rotas_bp.route('/char/update/<id>', methods=['POST'])
+def update_char(id):
+    char = request.form
+    values = list(char.values())
+    print(values)
+    print(id)
+    return jsonify({'message': 'message'})
 
 @rotas_bp.route('/delete/<id>', methods=["POST"])
 def route_delete_char(id):  

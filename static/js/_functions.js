@@ -1,4 +1,4 @@
-import { colors, colorKey } from "./char.js";
+import { colors, colorKey } from "./color-link-select.js";
 
 export function fetchCharacterImages(hairColor, skinColor) {
   return fetch("/img")
@@ -37,3 +37,34 @@ export function handleColorSelection(
     applyImageToCharacter(imageLink, characterImageElement);
   });
 }
+
+export function sendChar(form, fetch_route, fetch_id, charlist_id) {
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+
+    fetch(`${fetch_route}/${fetch_id}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const message = data.message;
+        alert(message);
+        return message;
+      })
+      .then((message) => {
+        window.location.href = `/charlist/${charlist_id}`;
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+      });
+  });
+}
+
+export function getID(){
+  const url = window.location.href;
+  const url_spit = url.split("/");
+  const id = url_spit[url_spit.length - 1];
+  return id
+} 

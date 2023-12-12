@@ -26,7 +26,8 @@ function hrefChange(tag, number, route) {
   });
 }
 
-hrefChange("a", 0, "/charlist/{{user['id']}}")
-hrefChange("a", 1, "/newchar/{{user['id']}}")
+let userid = {{user['id']}}
+hrefChange("a", 0, `/charlist/${userid}`)
+hrefChange("a", 1, `/newchar/${userid}`)
 hrefChange("a", 2, "/logout")
 </script>
