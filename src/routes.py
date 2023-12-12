@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, session, flash
 from src.helpers.imgLinks import colorLinks
 from src.middlewares.auth import authentication_required
-from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username, insert_new_char, delete_char
+from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username, insert_new_char, delete_char, update_char
 
 rotas_bp = Blueprint('rotas', __name__, template_folder='../static/templates')
 def create_route(route, template):
@@ -89,12 +89,13 @@ def register_new_char(id):
     return jsonify({'message': message})
 
 @rotas_bp.route('/char/update/<id>', methods=['POST'])
-def update_char(id):
+def route_update_char(id):
     char = request.form
     values = list(char.values())
-    print(values)
-    print(id)
-    return jsonify({'message': 'message'})
+    values.append(id)
+    keys = char.keys()
+    message = update_char(keys, values)
+    return jsonify({'message': message})
 
 @rotas_bp.route('/delete/<id>', methods=["POST"])
 def route_delete_char(id):  

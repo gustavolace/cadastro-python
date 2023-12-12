@@ -2,10 +2,10 @@ import { colorKey } from "./color-link-select.js";
 import { sendChar, getID } from "./_functions.js";
 
 let skinRadios = document.querySelectorAll(
-  'input[type="radio"][name="skinColor"]'
+  'input[type="radio"][name="skin_color"]'
 );
 let hairRadios = document.querySelectorAll(
-  'input[type="radio"][name="hairColor"]'
+  'input[type="radio"][name="hair_color"]'
 );
 radio_check(skinRadios, colorKey.skinColor);
 radio_check(hairRadios, colorKey.hairColor);

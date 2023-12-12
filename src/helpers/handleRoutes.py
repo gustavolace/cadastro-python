@@ -1,4 +1,4 @@
-from src.helpers.handleSQL import get_from_database, insert_on_database, delete_on_database
+from src.helpers.handleSQL import get_from_database, insert_on_database, delete_on_database, update_char
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def get_user_characters(user_id):
@@ -41,3 +41,6 @@ def delete_char(char_id):
     result = delete_on_database('characters', f'id = {char_id}')
     return result
 
+def update_character(keys, values):
+    result = update_char(keys, values)
+    return result

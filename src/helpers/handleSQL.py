@@ -41,3 +41,16 @@ def delete_on_database(table, condition):
         return "Deletado com sucesso"  
     except Exception as e:
         return f"Erro ao deletar registros: {str(e)}"
+    
+def update_char(array_keys, array_values):
+    try:
+        db = start_server()
+        placeholders = ", ".join([f"{column} = %s" for column in array_keys])
+        query = f"UPDATE characters SET {placeholders} WHERE id = %s"
+        db.cursor.execute(query, array_values)  
+        db.connection.commit()
+        db.cursor.close()
+        db.connection.close()
+        return "Registro atualizado com sucesso!"  
+    except Exception as e:
+        return f"Erro ao deletar registros: {str(e)}"
