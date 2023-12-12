@@ -18,7 +18,7 @@ def insert_on_database(table, columns, values):
         query = f"INSERT INTO {table} ({columns}) VALUES ({', '.join(['%s'] * len(values))})"
         db.cursor.execute(query, values)
         db.connection.commit()
-        return "Inserção realizada com sucesso"
+        return "Registro realizado com sucesso"
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_DUP_ENTRY:
             return "Chave duplicada: Ja existe um registro com esses valores"

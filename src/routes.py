@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, redirect, url_for, session, flash
+from flask import Blueprint, render_template, jsonify, request, redirect, url_for, session, flash, abort
 from src.helpers.imgLinks import colorLinks
 from src.middlewares.auth import authentication_required
 from src.helpers.handleRoutes import get_user_characters, get_user, login_user, register_user, check_username, insert_new_char, delete_char, update_char
@@ -9,6 +9,10 @@ def create_route(route, template):
     def route_function():
         return render_template(template)
     route_function.__name__ = f"route_{route.replace('/', '_').strip('_')}"
+
+def redirect_start():
+    redirect_start = redirect(url_for('rotas.route_'))
+    return redirect_start
     
 create_route('/', 'start.j2')
 create_route('/signin', 'sign-in.j2')
@@ -61,7 +65,7 @@ def register():
     except Exception as e:
         flash('Ocorreu um erro ao registrar o usuario. Por favor, tente novamente.', 'error')
         print(f"Ocorreu um erro: {str(e)}")
-    return redirect(url_for('rotas.route_'))
+    return redirect_start()
 
 @rotas_bp.route('/img', methods=['GET'])
 def img():
@@ -70,7 +74,7 @@ def img():
 @rotas_bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('rotas.route_')) 
+    return redirect_start()
 
 @rotas_bp.route('/username/<username>') 
 def route_check_username(username):
@@ -102,3 +106,10 @@ def route_delete_char(id):
     message = delete_char(id)
     return jsonify({'message': message})
     
+@rotas_bp.route('/<path:undefined_path>')
+def route_not_found(undefined_path):
+    abort(404)
+
+@rotas_bp.errorhandler(404)
+def page_not_found(error):
+    return redirect_start()
