@@ -3,6 +3,7 @@ from src.app import create_app
 from src.services.webview import open_browser
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
 
     flask_process = multiprocessing.Process(target=create_app)
     webview_process = multiprocessing.Process(target=open_browser)
