@@ -1,5 +1,6 @@
 from flask import Flask
 from waitress import serve
+import uvicorn
 from src.routes import rotas_bp
 from dotenv import load_dotenv
 import os
@@ -15,8 +16,6 @@ def create_app():
     app.register_blueprint(rotas_bp)
 
     print(f"Servidor rodando em http://{host}:{port}/")
-    serve(app, host=host, port=port)
-
 
 
 
