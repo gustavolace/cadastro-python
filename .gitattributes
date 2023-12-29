@@ -1,4 +1,0 @@
-*.j2 linguist-vendored
-*.html linguist-vendored
-*.css linguist-vendored
-*.tex linguist-detectable=false
